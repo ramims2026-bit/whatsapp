@@ -1,11 +1,15 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+// החלפנו ל-Heebo או Assistant - פונטים שנראים מעולה בעברית
+import { Heebo, Assistant } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+// הגדרת פונטים עם תמיכה בעברית
+const heebo = Heebo({ 
+  subsets: ["hebrew", "latin"],
+  variable: '--font-heebo',
+});
 
 export const viewport: Viewport = {
   themeColor: '#111b21',
@@ -15,8 +19,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  title: 'Ai-\u05D7.\u05E1\u05D1\u05DF | H. Saban Logistics',
-  description: 'AI-Powered logistics assistant for H. Saban - Fleet management, dispatch, and shipment tracking',
+  // תרגום כותרת ותיאור המערכת
+  title: 'Ai-ח.סבן | לוגיסטיקה חכמה',
+  description: 'עוזר לוגיסטי מבוסס בינה מלאכותית עבור ח. סבן - ניהול צי, שילוח ומעקב משלוחים',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -43,8 +48,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="font-sans antialiased overflow-hidden">
+    // 1. שינוי השפה ל-he
+    // 2. הוספת dir="rtl" - זה הקסם שיהפוך את כל הממשק
+    <html lang="he" dir="rtl" suppressHydrationWarning>
+      <body className={`${heebo.className} font-sans antialiased overflow-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
